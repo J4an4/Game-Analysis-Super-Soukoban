@@ -16,7 +16,9 @@ If you have already entered the levels, it will take you to the last level you p
 Number Keys 1 to 9:
 These keys take you to the corresponding level:
 >>**1 Key:** First level
+
 >>**2 Key:** Second level
+
 >>**3 Key:** Third level
 >>**4 Key:** Fourth level
 >>**5 Key:** Fifth level
