@@ -83,7 +83,8 @@ In Super Soukoban, you play as a warehouse worker who must organize boxes scatte
 ---
 
 ## **GamePlay**
-https://youtu.be/clKFhDMHYgk
+### Click to watch the video [HERE](https://www.youtube.com/watch?v=drR33b3_z1c). 
+
 ---
 
 ## **Team Members**
