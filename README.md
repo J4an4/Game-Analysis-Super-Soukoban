@@ -15,12 +15,17 @@ We’re going to replicate the 1998 Super Soukoban game arcade version. This pro
 Super Soukoban is a puzzle game developed by THINKING RABBIT and published by PACK-IN-VIDEO for the Super Nintendo in 1998. The main objective of the game is to move boxes to designated locations within each level using the fewest possible moves. This game combines strategy and logic, making it perfect for those who enjoy mental challenges.
 
 ---
+## **Features implemented**
 
-## **Storyline**
-
-In Super Soukoban, you play as a warehouse worker who must organize boxes scattered around different levels. Each level represents a new challenge where you must use your wits to place all the boxes in their proper spots. The game doesn't have a complex storyline, only that the worker want to get some money for buy his dream car, but its simplicity is part of its charm, focusing on pure puzzle-solving gameplay.
-
----
+List of features implemented:
+- Fixed the collision issues that we had been dealing with.
+- Correctly adjusted the character's sprites.
+- Implemented win and lose functionalities, as well as background music.
+- Added levels one through eight.
+- Solved a problem that allowed winning with only three boxes.
+- Fixed an issue where, if a box weighed down by balls moved off the balls, it retained the color as if it were still on them.
+- Implemented hotkeys: F1 to win automatically, F2 to lose automatically, and F4 to show the end of the game.
+- Added full-screen mode.
 
 ## **Controls (PC)**
 
