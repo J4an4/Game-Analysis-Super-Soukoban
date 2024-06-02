@@ -1,5 +1,5 @@
-Project executed on 01-06-2024 at 00:10:42.
+Project executed on 02-06-2024 at 10:42:07.
 main.cpp(15): Application start
 main.cpp(36): Application finish
-Game.cpp(684): img_initial is not loaded
+Game.cpp(806): img_initial is not loaded
 main.cpp(39): Bye :3

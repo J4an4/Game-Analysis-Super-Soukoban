@@ -49,6 +49,8 @@ private:
     Scene* scene;
     const Texture2D* img_menu;
     const Texture2D* img_initial;
+    const Texture2D* img_final;
+
 
     // Functions for scene transitions
     void Transition();
@@ -86,6 +88,12 @@ private:
     float menuDuration_final;
     float timeBetweenImages_menu_final;
     float framesCounter_menu_final;
+
+
+    //Key F4
+    bool f4Pressed;
+    double f4PressTime;
+    bool showingFinalImage;
 
     // General frame counter
     float framesCounter;      

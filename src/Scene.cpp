@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include <stdio.h>
+
 #include "Globals.h"
 #define KEY_F2 289 
 #define KEY_SPACE 32
@@ -514,23 +515,6 @@ void Scene::Update()
 		debug = (DebugMode)(((int)debug + 1) % (int)DebugMode::SIZE);
 	}
 	
-	//Debug levels instantly
-	if (IsKeyPressed(KEY_ONE))			LoadLevel(1);
-	
-	else if (IsKeyPressed(KEY_TWO))		LoadLevel(2);
-	
-	else if (IsKeyPressed(KEY_THREE))	LoadLevel(3);
-	
-	else if (IsKeyPressed(KEY_FOUR))	LoadLevel(4);
-	
-	else if (IsKeyPressed(KEY_FIVE))	LoadLevel(5);
-	
-	else if (IsKeyPressed(KEY_SIX))		LoadLevel(6);
-	
-	else if (IsKeyPressed(KEY_SEVEN))	LoadLevel(7);
-	
-	else if (IsKeyPressed(KEY_EIGHT))	LoadLevel(8);
-
 
 	level->Update();
 	player->Update();

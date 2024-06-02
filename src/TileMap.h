@@ -64,15 +64,18 @@ public:
 	bool TestCollisionWallUp(const AABB& box) const;
 	bool TestCollisionWallDown(const AABB& box) const;
 
+	void UpdateBoxState(int x, int y);
+	bool MoveBox(int x, int y, int newX, int newY);
+
 	bool TestBoxLeft(const AABB& box) const;
 	bool TestBoxRight(const AABB& box) const;
 	bool TestBoxUp(const AABB& box) const;
 	bool TestBoxDown(const AABB& box) const;
 
-	bool MoveBoxRight(const AABB& box) const;
-	bool MoveBoxLeft(const AABB& box) const;
-	bool MoveBoxUp(const AABB& box) const;
-	bool MoveBoxDown(const AABB& box) const;
+	bool MoveBoxRight(const AABB& box);
+	bool MoveBoxLeft(const AABB& box);
+	bool MoveBoxUp(const AABB& box);
+	bool MoveBoxDown(const AABB& box);
 
 	void DrawBox(int x, int y) const;
 	void DrawWin() const;

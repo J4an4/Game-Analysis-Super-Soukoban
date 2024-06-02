@@ -116,8 +116,8 @@
     <LibraryPath>C:\Users\Usuari\Downloads\raylib\raylib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\janaps\Downloads\raylib\raylib\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\janaps\Downloads\raylib\raylib\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Usuari\Downloads\raylib\raylib\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Usuari\Downloads\raylib\raylib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

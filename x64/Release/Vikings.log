@@ -1,24 +1,35 @@
 ﻿  AABB.cpp
   Entity.cpp
-C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\Entity.h(3,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
   Game.cpp
-C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\Scene.h(2,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(25,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(53,15): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(54,17): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(356,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(679,17): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(684,17): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(778,42): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(778,29): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(779,65): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(779,52): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(779,39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(784,39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(784,29): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(785,60): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(785,50): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(785,35): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   Globals.cpp
   main.cpp
-C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\Scene.h(2,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
   Object.cpp
-C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\Entity.h(3,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Object.cpp(14,2): warning C4065: switch statement contains 'default' but no 'case' labels
   Player.cpp
-C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\Entity.h(3,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
   RenderComponent.cpp
-C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\RenderComponent.h(2,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
   ResourceManager.cpp
-C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\ResourceManager.h(3,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
   Scene.cpp
-C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\Scene.h(2,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
   Sprite.cpp
-C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\RenderComponent.h(2,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
   StaticImage.cpp
-C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\RenderComponent.h(2,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
   TileMap.cpp
-C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\TileMap.h(3,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 899 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Vikings.vcxproj -> C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\x64\Release\Super Soukoban.exe

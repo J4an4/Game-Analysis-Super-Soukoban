@@ -50,6 +50,9 @@ Game::Game()
     framesCounter_menu_final = 0;
     menuDuration_final = 3.0f;
 
+    f4Pressed == false;
+    f4PressTime == 0.0f;
+    showingFinalImage = false;
 
 }
 Game::~Game()
@@ -119,7 +122,12 @@ AppStatus Game::LoadResources()
     }
     img_initial = data.GetTexture(Resource::IMG_INITIAL);
 
-
+    if (data.LoadTexture(Resource::IMG_FINAL, "images/final.png") != AppStatus::OK)
+    {
+        return AppStatus::ERROR;
+    }
+    img_final = data.GetTexture(Resource::IMG_FINAL);
+    
     // Load intro images 
     for (int i = 1; i <= 153; ++i)
     {
@@ -165,6 +173,9 @@ AppStatus Game::LoadResources()
     soundMusic[2] = LoadMusicStream("sound/music/Opening.ogg");
     soundMusic[1] = LoadMusicStream("sound/music/TitleScreen.ogg");
     soundMusic[5] = LoadMusicStream("sound/music/StageSelect.ogg");
+    soundMusic[0] = LoadMusicStream("sound/music/PhysicalLabor.ogg"); //Level1
+    soundMusic[6] = LoadMusicStream("sound/music/HardLabor.ogg");//Level2
+
 
     return AppStatus::OK;
 }
@@ -174,6 +185,11 @@ AppStatus Game::BeginPlayMenu()
 {
     scene = new Scene();
     PlayMusicStream(soundMusic[1]);
+    StopMusicStream(soundMusic[2]); // Intro
+    StopMusicStream(soundMusic[3]); // Failure
+    StopMusicStream(soundMusic[6]); // Level 2,4,6,8
+    StopMusicStream(soundMusic[0]); // Level 1,3,5,7
+
    
     if (scene == nullptr)
     {
@@ -193,8 +209,48 @@ AppStatus Game::BeginPlayMenu()
 AppStatus Game::BeginPlay()
 {
     scene = new Scene();
-    soundMusic[0] = LoadMusicStream("sound/music/PhysicalLabor.ogg");
-    PlayMusicStream(soundMusic[0]);
+
+    StopMusicStream(soundMusic[0]);
+    StopMusicStream(soundMusic[6]);
+    
+    switch (selectedLevel)
+    {
+    case 1:
+        StopMusicStream(soundMusic[6]);
+        PlayMusicStream(soundMusic[0]);       
+        break;
+    case 2:
+        StopMusicStream(soundMusic[0]);
+        PlayMusicStream(soundMusic[6]);  
+        break;
+    case 3:
+        StopMusicStream(soundMusic[6]);
+        PlayMusicStream(soundMusic[0]);       
+        break;
+    case 4:
+        StopMusicStream(soundMusic[0]);
+        PlayMusicStream(soundMusic[6]);  
+        break;
+    case 5:
+        StopMusicStream(soundMusic[6]);
+        PlayMusicStream(soundMusic[0]);       
+        break;
+    case 6:
+        StopMusicStream(soundMusic[0]);
+        PlayMusicStream(soundMusic[6]); 
+        break;
+    case 7:
+        StopMusicStream(soundMusic[6]);
+        PlayMusicStream(soundMusic[0]);
+        break;
+    case 8:
+        StopMusicStream(soundMusic[0]);
+        PlayMusicStream(soundMusic[6]);  
+        break;
+    default:
+        // Handle other levels if needed
+        break;
+    }
   
     if (scene == nullptr)
     {
@@ -214,21 +270,56 @@ AppStatus Game::BeginPlay()
 void Game::SetSelectedLevel(int level)
 {    selectedLevel = level;
    
-// Change level based on selectedLevel
+    // Stop current music streams
+    for (int i = 0; i < 10; ++i) {
+        StopMusicStream(soundMusic[i]);
+     
+    }
+
+    // Change level based on selectedLevel
     switch (selectedLevel)
     {
     case 1:
+        scene->ChangeLevel(selectedLevel);
+        StopMusicStream(soundMusic[6]); 
+        PlayMusicStream(soundMusic[0]);
+        break;
     case 2:
+        scene->ChangeLevel(selectedLevel);
+        StopMusicStream(soundMusic[0]); 
+        PlayMusicStream(soundMusic[6]);
+        break;
     case 3:
+        scene->ChangeLevel(selectedLevel);
+        StopMusicStream(soundMusic[6]); 
+        PlayMusicStream(soundMusic[0]);
+        break;
     case 4:
+        scene->ChangeLevel(selectedLevel);
+        StopMusicStream(soundMusic[0]); 
+        PlayMusicStream(soundMusic[6]);
+        break;
     case 5:
+        scene->ChangeLevel(selectedLevel);
+        StopMusicStream(soundMusic[6]); 
+        PlayMusicStream(soundMusic[0]);
+        break;
     case 6:
+        scene->ChangeLevel(selectedLevel);
+        StopMusicStream(soundMusic[0]); 
+        PlayMusicStream(soundMusic[6]);
+        break;
     case 7:
+        scene->ChangeLevel(selectedLevel);
+        StopMusicStream(soundMusic[6]);
+        PlayMusicStream(soundMusic[0]);
+        break;
     case 8:
         scene->ChangeLevel(selectedLevel);
-        StopMusicStream(soundMusic[0]);
-        //PlayMusicStream(soundMusic[0]);
+        StopMusicStream(soundMusic[0]); 
+        PlayMusicStream(soundMusic[6]);
         break;
+       
     default:
         break;
     }
@@ -240,6 +331,11 @@ void Game::FinishPlay()
     scene->Release();
     delete scene;
     scene = nullptr;
+    StopMusicStream(soundMusic[0]); // Level 1
+    StopMusicStream(soundMusic[1]); // Main menu
+    StopMusicStream(soundMusic[2]); // Intro
+    StopMusicStream(soundMusic[3]); // Failure
+    StopMusicStream(soundMusic[6]); // Level 2
 }
 
 
@@ -254,293 +350,319 @@ AppStatus Game::Update()
     UpdateMusicStream(soundMusic[1]);
     UpdateMusicStream(soundMusic[2]);
     UpdateMusicStream(soundMusic[3]);
+    UpdateMusicStream(soundMusic[6]);
     
     // Update time
     time = GetTime();
-   
-    // Update game based on current state
-    switch (state)
-    {
 
-    case GameState::START:
+    // Check if F4 is pressed
+    if (IsKeyPressed(KEY_F4)) {
+        f4Pressed = true;
+        f4PressTime = time;
        
-        // Display initial image and transition to main menu after 4 seconds
-        DrawTexture(*img_initial, 0, 0, WHITE);
-        if (time == 4)
-        {
-            BeginPlayMenu();
-            state = GameState::INTRO;
-        }
-        break;
+    }
 
-    case GameState::INTRO:
-       
-        // Display intro animation and transition to cover state after completion
+    // If F4 was pressed, handle the logic to show final image and transition after 4 seconds
+    if (f4Pressed) {
         StopMusicStream(soundMusic[0]);
         StopMusicStream(soundMusic[1]);
         StopMusicStream(soundMusic[3]);
-
-        if (!IsMusicStreamPlaying(soundMusic[2]))
-        {
-            PlayMusicStream(soundMusic[2]); // Start intro music
-        }
-        framesCounter += GetFrameTime();
-        if (framesCounter >= timeBetweenImages)
-        {
-            framesCounter = 0;
-            currentIntroFrame++;
-        }
-
-        if (currentIntroFrame < introImages.size())
-        {
-            DrawTexture(introImages[currentIntroFrame], 0, 0, WHITE);
-        }
-        else {
-            Transition();
-            StopMusicStream(soundMusic[2]);
-
-            framesCounter_cover = 0;
-            currentCoverFrame = 0;
-            PlayMusicStream(soundMusic[5]);
-
-            state = GameState::COVER;
-        }
-        break;
-
-    case GameState::COVER:
-
-        // Display cover animation and transition to main menu after completion
-        UpdateMusicStream(soundMusic[5]);
-
-        if (!IsMusicStreamPlaying(soundMusic[5]))
-        {
-            PlayMusicStream(soundMusic[5]); // Start intro music
-        }
-        framesCounter_cover += GetFrameTime();
-        if (framesCounter_cover >= timeBetweenImages_cover)
-        {
-            framesCounter_cover = 0;
-            currentCoverFrame++;
-        }
-
-        if (currentCoverFrame < coverImages.size())
-        {
-            DrawTexture(coverImages[currentCoverFrame], 0, 0, WHITE);
-        }
-        else {
-            Transition();
-            StopMusicStream(soundMusic[5]);
-
-            BeginPlayMenu();
-            PlayMusicStream(soundMusic[1]);
-
-            state = GameState::MAIN_MENU;
-            framesCounter_menu = 0;
-            currentMenuFrame = 0;
-        }
-        break;
-
-    case GameState::MAIN_MENU:
+        StopMusicStream(soundMusic[2]);
+        StopMusicStream(soundMusic[6]);
+        DrawTexture(*img_final, 0, 0, WHITE);
        
-        // Display main menu and handle level selection
-        wonOrLost = false;
+    }
 
-        framesCounter_menu += GetFrameTime();
-        if (framesCounter_menu >= timeBetweenImages_menu)
-        {
-            framesCounter_menu = 0;
-            currentMenuFrame++;
-        }
+    // Check if ESC is pressed to quit the game when showing final image
+    if (showingFinalImage && IsKeyPressed(KEY_ESCAPE)) {
+        return AppStatus::QUIT;
+    }
 
-        if (currentMenuFrame < menuImages.size())
-        {
-            DrawTexture(menuImages[currentMenuFrame], 0, 0, WHITE);
-        }
-        
-        if (IsKeyPressed(KEY_ONE)) {
-            
-            SetSelectedLevel(1);
-            Transition();
-
-            state = GameState::FINAL_IMAGES;
-            framesCounter_menu_final = 0;
-            currentMenuFrame_final = 0;
-        }
-
-        else if (IsKeyPressed(KEY_TWO)) {
-            
-            SetSelectedLevel(2);
-            Transition();
-
-            state = GameState::FINAL_IMAGES;
-            framesCounter_menu_final = 0;
-            currentMenuFrame_final = 0;
-          }
-        else if (IsKeyPressed(KEY_THREE)) {
-          
-            SetSelectedLevel(3);
-            Transition();
-
-            state = GameState::FINAL_IMAGES;
-            framesCounter_menu_final = 0;
-            currentMenuFrame_final = 0;        
-        }
-
-        else if (IsKeyPressed(KEY_FOUR)) {
-           
-            SetSelectedLevel(4);
-            Transition();
-
-            state = GameState::FINAL_IMAGES;
-            framesCounter_menu_final = 0;
-            currentMenuFrame_final = 0;      
-        }
-       
-        else if (IsKeyPressed(KEY_FIVE)) {
-
-            SetSelectedLevel(5);
-            Transition();
-
-            state = GameState::FINAL_IMAGES;
-            framesCounter_menu_final = 0;
-            currentMenuFrame_final = 0;
-        }
-
-        else if (IsKeyPressed(KEY_SIX)) {
-           
-            SetSelectedLevel(6);
-            Transition();
-
-            state = GameState::FINAL_IMAGES;
-            framesCounter_menu_final = 0;
-            currentMenuFrame_final = 0;         
-        }
-       
-        else if (IsKeyPressed(KEY_SEVEN)) {
-           
-            SetSelectedLevel(7);
-            Transition();
-
-            state = GameState::FINAL_IMAGES;
-            framesCounter_menu_final = 0;
-            currentMenuFrame_final = 0;            
-        }
-       
-        else if (IsKeyPressed(KEY_EIGHT)) {
-           
-            SetSelectedLevel(8);
-            Transition();
-
-            state = GameState::FINAL_IMAGES;
-            framesCounter_menu_final = 0;
-            currentMenuFrame_final = 0;
-           }
-       
-
-        if (IsKeyPressed(KEY_ESCAPE))
-        {
-            return AppStatus::QUIT;
-        }
-
-        if (IsKeyPressed(KEY_SPACE) or (IsKeyPressed(KEY_R) and state == GameState::PLAYING))
-        {
-            Transition();
-            state = GameState::FINAL_IMAGES;
-            framesCounter_menu_final = 0;
-            currentMenuFrame_final = 0;
-        }
-        break;
-
-
-    case GameState::FINAL_IMAGES:
-       
-        // Display final images and transition to game playing state after completion
-        framesCounter_menu_final += GetFrameTime();
-
-        if (currentMenuFrame_final < menuImages_final.size())
-        {
-            DrawTexture(menuImages_final[currentMenuFrame_final], 0, 0, WHITE);
-
-            if (framesCounter_menu_final >= timeBetweenImages_menu_final)
-            {
-                framesCounter_menu_final = 0;
-                currentMenuFrame_final++;
-
-                if (currentMenuFrame_final >= menuImages_final.size())
-                {
-                    Transition();
-                    BeginPlay();
-                    StopMusicStream(soundMusic[0]);
-                    StopMusicStream(soundMusic[2]);
-                    StopMusicStream(soundMusic[3]);
-                    soundEffect[0] = LoadSound("sound/SFX/Transition.wav");
-                    PlaySound(soundEffect[0]);
-                    StopMusicStream(soundMusic[1]);
-                    if (BeginPlay() != AppStatus::OK) return AppStatus::ERROR;
-                    state = GameState::PLAYING;
-                    scene->ChangeLevel(selectedLevel);
-                                    
-                   
-                }
-            }
-        }
-        
-        break;
     
-    case GameState::PLAYING:
-        if (IsKeyPressed(KEY_ESCAPE))
+
+        // Update game based on current state
+        switch (state)
         {
-            Transition();
-          
-            PlaySound(soundEffect[0]);
-            BeginPlayMenu();
-            FinishPlay();
+
+        case GameState::START:
+
+            // Display initial image and transition to main menu after 4 seconds
+            DrawTexture(*img_initial, 0, 0, WHITE);
+            if (time == 4)
+            {
+                BeginPlayMenu();
+                state = GameState::INTRO;
+
+
+            }
+            break;
+
+        case GameState::INTRO:
+
+            // Display intro animation and transition to cover state after completion
             StopMusicStream(soundMusic[0]);
-            StopMusicStream(soundMusic[2]);
+            StopMusicStream(soundMusic[1]);
             StopMusicStream(soundMusic[3]);
 
-            if (BeginPlayMenu() != AppStatus::OK) return AppStatus::ERROR;
-            state = GameState::MAIN_MENU;
-        }
-        if (scene->player->lost and !wonOrLost)
-        {
-            StopMusicStream(soundMusic[0]);
-            soundMusic[3] = LoadMusicStream("sound/music/Failure.ogg");
-            PlayMusicStream(soundMusic[3]);
-            wonOrLost = true;
-
-            if (IsKeyPressed(KEY_R))
+            if (!IsMusicStreamPlaying(soundMusic[2]))
             {
-                StopMusicStream(soundMusic[2]);
-                StopMusicStream(soundMusic[3]);
-                PlayMusicStream(soundMusic[0]);
+                PlayMusicStream(soundMusic[2]); // Start intro music
             }
-        }
-        if (scene->player->won and !wonOrLost)
-        {
-            StopMusicStream(soundMusic[0]);
-            soundMusic[2] = LoadMusicStream("sound/music/StageComplete.ogg");
-            PlayMusicStream(soundMusic[2]);
-            wonOrLost = true;
-        }
+            framesCounter += GetFrameTime();
+            if (framesCounter >= timeBetweenImages)
+            {
+                framesCounter = 0;
+                currentIntroFrame++;
+            }
 
-        if (scene->player->won)
-        {
-            if (IsKeyPressed(KEY_SPACE))
+            if (currentIntroFrame < introImages.size())
+            {
+                DrawTexture(introImages[currentIntroFrame], 0, 0, WHITE);
+            }
+            else {
+                Transition();
+                StopMusicStream(soundMusic[2]);
+
+                framesCounter_cover = 0;
+                currentCoverFrame = 0;
+                PlayMusicStream(soundMusic[5]);
+
+                state = GameState::COVER;
+            }
+            break;
+
+        case GameState::COVER:
+
+            // Display cover animation and transition to main menu after completion
+            UpdateMusicStream(soundMusic[5]);
+
+            if (!IsMusicStreamPlaying(soundMusic[5]))
+            {
+                PlayMusicStream(soundMusic[5]); // Start intro music
+            }
+            framesCounter_cover += GetFrameTime();
+            if (framesCounter_cover >= timeBetweenImages_cover)
+            {
+                framesCounter_cover = 0;
+                currentCoverFrame++;
+            }
+
+            if (currentCoverFrame < coverImages.size())
+            {
+                DrawTexture(coverImages[currentCoverFrame], 0, 0, WHITE);
+            }
+            else {
+                Transition();
+                StopMusicStream(soundMusic[5]);
+
+                BeginPlayMenu();
+                PlayMusicStream(soundMusic[1]);
+
+                state = GameState::MAIN_MENU;
+                framesCounter_menu = 0;
+                currentMenuFrame = 0;
+            }
+            break;
+
+        case GameState::MAIN_MENU:
+
+            StopMusicStream(soundMusic[0]);
+
+            StopMusicStream(soundMusic[6]);
+            // Display main menu and handle level selection
+            wonOrLost = false;
+
+            framesCounter_menu += GetFrameTime();
+            if (framesCounter_menu >= timeBetweenImages_menu)
+            {
+                framesCounter_menu = 0;
+                currentMenuFrame++;
+            }
+
+            if (currentMenuFrame < menuImages.size())
+            {
+                DrawTexture(menuImages[currentMenuFrame], 0, 0, WHITE);
+            }
+
+            if (IsKeyPressed(KEY_ONE)) {
+
+                SetSelectedLevel(1);
+                Transition();
+
+                state = GameState::FINAL_IMAGES;
+                framesCounter_menu_final = 0;
+                currentMenuFrame_final = 0;
+            }
+
+            else if (IsKeyPressed(KEY_TWO)) {
+
+                SetSelectedLevel(2);
+                Transition();
+
+                state = GameState::FINAL_IMAGES;
+                framesCounter_menu_final = 0;
+                currentMenuFrame_final = 0;
+            }
+            else if (IsKeyPressed(KEY_THREE)) {
+
+                SetSelectedLevel(3);
+                Transition();
+
+                state = GameState::FINAL_IMAGES;
+                framesCounter_menu_final = 0;
+                currentMenuFrame_final = 0;
+            }
+
+            else if (IsKeyPressed(KEY_FOUR)) {
+
+                SetSelectedLevel(4);
+                Transition();
+
+                state = GameState::FINAL_IMAGES;
+                framesCounter_menu_final = 0;
+                currentMenuFrame_final = 0;
+            }
+
+            else if (IsKeyPressed(KEY_FIVE)) {
+
+                SetSelectedLevel(5);
+                Transition();
+
+                state = GameState::FINAL_IMAGES;
+                framesCounter_menu_final = 0;
+                currentMenuFrame_final = 0;
+            }
+
+            else if (IsKeyPressed(KEY_SIX)) {
+
+                SetSelectedLevel(6);
+                Transition();
+
+                state = GameState::FINAL_IMAGES;
+                framesCounter_menu_final = 0;
+                currentMenuFrame_final = 0;
+            }
+
+            else if (IsKeyPressed(KEY_SEVEN)) {
+
+                SetSelectedLevel(7);
+                Transition();
+
+                state = GameState::FINAL_IMAGES;
+                framesCounter_menu_final = 0;
+                currentMenuFrame_final = 0;
+            }
+
+            else if (IsKeyPressed(KEY_EIGHT)) {
+
+                SetSelectedLevel(8);
+                Transition();
+
+                state = GameState::FINAL_IMAGES;
+                framesCounter_menu_final = 0;
+                currentMenuFrame_final = 0;
+            }
+
+
+            if (IsKeyPressed(KEY_ESCAPE))
+            {
+                return AppStatus::QUIT;
+            }
+
+            if (IsKeyPressed(KEY_SPACE) or (IsKeyPressed(KEY_R) and state == GameState::PLAYING))
             {
                 Transition();
+                state = GameState::FINAL_IMAGES;
+                framesCounter_menu_final = 0;
+                currentMenuFrame_final = 0;
+            }
+            break;
+
+
+        case GameState::FINAL_IMAGES:
+
+            // Display final images and transition to game playing state after completion
+            framesCounter_menu_final += GetFrameTime();
+
+            if (currentMenuFrame_final < menuImages_final.size())
+            {
+                DrawTexture(menuImages_final[currentMenuFrame_final], 0, 0, WHITE);
+
+                if (framesCounter_menu_final >= timeBetweenImages_menu_final)
+                {
+                    framesCounter_menu_final = 0;
+                    currentMenuFrame_final++;
+
+                    if (currentMenuFrame_final >= menuImages_final.size())
+                    {
+                        Transition();
+                        BeginPlay();
+                        StopMusicStream(soundMusic[0]);
+                        StopMusicStream(soundMusic[2]);
+                        StopMusicStream(soundMusic[3]);
+                        soundEffect[0] = LoadSound("sound/SFX/Transition.wav");
+                        PlaySound(soundEffect[0]);
+                        StopMusicStream(soundMusic[1]);
+                        StopMusicStream(soundMusic[6]);
+
+                        if (BeginPlay() != AppStatus::OK) return AppStatus::ERROR;
+                        state = GameState::PLAYING;
+                        scene->ChangeLevel(selectedLevel);
+
+
+                    }
+                }
+            }
+
+            break;
+
+        case GameState::PLAYING:
+            if (IsKeyPressed(KEY_ESCAPE))
+            {
+                Transition();
+
+                PlaySound(soundEffect[0]);
+                BeginPlayMenu();
+                FinishPlay();
+                StopMusicStream(soundMusic[0]);
+                StopMusicStream(soundMusic[2]);
+                StopMusicStream(soundMusic[3]);
+                StopMusicStream(soundMusic[6]);
+
+                if (BeginPlayMenu() != AppStatus::OK) return AppStatus::ERROR;
                 state = GameState::MAIN_MENU;
             }
+            if (scene->player->lost and !wonOrLost)
+            {
+                StopMusicStream(soundMusic[0]);
+                StopMusicStream(soundMusic[6]);
+
+                soundMusic[3] = LoadMusicStream("sound/music/Failure.ogg");
+                PlayMusicStream(soundMusic[3]);
+                wonOrLost = true;
+
+
+            }
+            if (scene->player->won and !wonOrLost)
+            {
+                StopMusicStream(soundMusic[0]);
+                StopMusicStream(soundMusic[6]);
+                soundMusic[2] = LoadMusicStream("sound/music/StageComplete.ogg");
+                PlayMusicStream(soundMusic[2]);
+                wonOrLost = true;
+            }
+
+
+            else
+            {
+                scene->Update();
+            }
+            break;
+
+
+
         }
-        else
-        {
-            scene->Update();
-        }
-        break;
-
-
-
-    }
+    
     return AppStatus::OK;
 }
 
@@ -573,67 +695,67 @@ void Game::Render()
     // Begin rendering to target texture
     BeginTextureMode(target);
     ClearBackground(BLACK);
-
-
-     
-    // Render based on current game state
-    switch (state)
-    {
-    case GameState::START:  // Render initial image
-        
-        DrawTexture(*img_initial, 0, 0, WHITE);
-        break;
-
-    case GameState::INTRO:  // Render intro animation
-        
-        if (currentIntroFrame < introImages.size())
+    if (f4Pressed) {
+        // Render final image
+        DrawTexture(*img_final, 0, 0, WHITE);
+    }
+    else {
+        // Render based on current game state
+        switch (state)
         {
-            DrawTexture(introImages[currentIntroFrame], 0, 0, WHITE);
-        }
-        break;
+        case GameState::START:  // Render initial image
 
-    case GameState::COVER:   // Render cover animation
-        
-        if (currentCoverFrame < coverImages.size())
-        {
-            DrawTexture(coverImages[currentCoverFrame], 0, 0, WHITE);
-        }
-        break;
+            DrawTexture(*img_initial, 0, 0, WHITE);
+            break;
 
-    case GameState::MAIN_MENU:  // Render main menu
-       
-        if (currentMenuFrame < menuImages.size())
-        {
-            DrawTexture(menuImages[currentMenuFrame], 0, 0, WHITE);
-        }
-       
-        if (currentMenuFrame > menuImages.size()) {
-            DrawTexture(*img_menu, 0, 0, WHITE);
-        }
-         break;
+        case GameState::INTRO:  // Render intro animation
 
-    case GameState::FINAL_IMAGES:   // Render final images
-      
-        if (currentMenuFrame_final < menuImages_final.size())
-       {
-            DrawTexture(menuImages_final[currentMenuFrame_final], 0, 0, WHITE);
-        }
-        break;
-       
-    case GameState::PLAYING:
+            if (currentIntroFrame < introImages.size())
+            {
+                DrawTexture(introImages[currentIntroFrame], 0, 0, WHITE);
+            }
+            break;
 
-        scene->Render();
-        break;
+        case GameState::COVER:   // Render cover animation
+
+            if (currentCoverFrame < coverImages.size())
+            {
+                DrawTexture(coverImages[currentCoverFrame], 0, 0, WHITE);
+            }
+            break;
+
+        case GameState::MAIN_MENU:  // Render main menu
+
+            if (currentMenuFrame < menuImages.size())
+            {
+                DrawTexture(menuImages[currentMenuFrame], 0, 0, WHITE);
+            }
+
+            if (currentMenuFrame > menuImages.size()) {
+                DrawTexture(*img_menu, 0, 0, WHITE);
+            }
+            break;
+
+        case GameState::FINAL_IMAGES:   // Render final images
+
+            if (currentMenuFrame_final < menuImages_final.size())
+            {
+                DrawTexture(menuImages_final[currentMenuFrame_final], 0, 0, WHITE);
+            }
+            break;
+
+        case GameState::PLAYING:
+
+            scene->Render();
+            break;
+        }
     }
     EndTextureMode();
     // Draw render texture to screen, properly scaled
     BeginDrawing();
     ClearBackground(BLACK); // Clear the entire screen to black
 
-    // Draw render texture to screen, properly scaled
- /*   BeginDrawing();
-    DrawTexturePro(target.texture, src, dst, { 0, 0 }, 0.0f, WHITE);
-    EndDrawing();*/
+   
     // Calculate the center position for the render target
     float screenWidth = (float)GetScreenWidth();
     float screenHeight = (float)GetScreenHeight();

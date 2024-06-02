@@ -199,14 +199,41 @@ bool TileMap::IsTileGoal(Tile tile) const
 	return (tile == Tile::FLOORRED);
 }
 
+void TileMap::UpdateBoxState(int x, int y) {
+	
+	Tile tileBelow = GetTileIndex(x, y);
+	Tile currentTile = GetTileIndex(x, y);
+	
+	if (tileBelow == Tile::FLOORRED) {
+		if (currentTile == Tile::BOX_DYNAMIC) {
+			ChangeTile(x, y, Tile::BOX_STATIC);
+		}
+	}
+	else {
+		
+		if (currentTile == Tile::BOX_STATIC) {
+			ChangeTile(x, y, Tile::BOX_DYNAMIC);
+		}
+	}
+}
+
+
 
 bool TileMap::TestCollisionWallLeft(const AABB& box) const
 {
 	return CollisionX(box.pos, box.height);
 }
-bool TileMap::MoveBoxLeft(const AABB& box) const
+bool TileMap::MoveBoxLeft(const AABB& box)
 {
-	return BoxLeft(box.pos, box.height);
+	bool canMove = BoxLeft(box.pos, box.width);
+	if (canMove) {
+		// Realizar el movimiento de la caja
+		// Luego actualizar su estado en el mapa
+		int x = box.pos.x / TILE_SIZE;
+		int y = box.pos.y / TILE_SIZE;
+		UpdateBoxState(x, y);
+	}
+	return canMove;
 }
 bool TileMap::TestBoxLeft(const AABB& box) const
 {
@@ -218,9 +245,17 @@ bool TileMap::TestCollisionWallRight(const AABB& box) const
 {
 	return CollisionX(box.pos + Point(box.width - 1, 0), box.height);
 }
-bool TileMap::MoveBoxRight(const AABB& box) const
+bool TileMap::MoveBoxRight(const AABB& box)
 {
-	return BoxRight(box.pos, box.height);
+	bool canMove = BoxRight(box.pos, box.width);
+	if (canMove) {
+		// Realizar el movimiento de la caja
+		// Luego actualizar su estado en el mapa
+		int x = (box.pos.x + box.width) / TILE_SIZE;  // Calcula la columna siguiente
+		int y = box.pos.y / TILE_SIZE;                // Mantiene la misma fila
+		UpdateBoxState(x, y);
+	}
+	return canMove;
 }
 bool TileMap::TestBoxRight(const AABB& box) const
 {
@@ -239,9 +274,17 @@ bool TileMap::TestCollisionWallUp(const AABB& box) const
 		return false;
 	}
 }
-bool TileMap::MoveBoxUp(const AABB& box) const
+bool TileMap::MoveBoxUp(const AABB& box)
 {
-	return BoxUp(box.pos, box.height);
+	bool canMove = BoxUp(box.pos, box.height);
+	if (canMove) {
+		// Realizar el movimiento de la caja hacia arriba
+		// Luego actualizar su estado en el mapa
+		int x = box.pos.x / TILE_SIZE;
+		int y = box.pos.y / TILE_SIZE;
+		UpdateBoxState(x, y);
+	}
+	return canMove;
 }
 bool TileMap::TestBoxUp(const AABB& box) const
 {
@@ -266,9 +309,17 @@ bool TileMap::TestCollisionWallDown(const AABB& box) const
 		return false;
 	}
 }
-bool TileMap::MoveBoxDown(const AABB& box) const
+bool TileMap::MoveBoxDown(const AABB& box) 
 {
-	return BoxDown(box.pos, box.height);
+	bool canMove = BoxDown(box.pos, box.height);
+	if (canMove) {
+		// Realizar el movimiento de la caja hacia abajo
+		// Luego actualizar su estado en el mapa
+		int x = box.pos.x / TILE_SIZE;                // Mantiene la misma columna
+		int y = (box.pos.y + box.height) / TILE_SIZE; // Calcula la fila siguiente
+		UpdateBoxState(x, y);
+	}
+	return canMove;
 }
 bool TileMap::TestBoxDown(const AABB& box) const
 {

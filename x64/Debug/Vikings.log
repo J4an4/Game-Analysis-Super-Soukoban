@@ -1,3 +1,19 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (Vikings.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  main.cpp
+  Game.cpp
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(25,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(348,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(643,17): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(648,17): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(739,42): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(739,29): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(740,65): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(740,52): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(740,39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(745,39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(745,29): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(746,60): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(746,50): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\src\Game.cpp(746,35): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  ResourceManager.cpp
+  Generating Code...
   Vikings.vcxproj -> C:\Users\Usuari\Desktop\Super Soukoban\Super Soukoban\x64\Debug\Super Soukoban.exe
