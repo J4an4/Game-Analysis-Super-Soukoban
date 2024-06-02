@@ -15,6 +15,7 @@ Super Soukoban is a puzzle game developed by THINKING RABBIT and published by PA
 ### **Gameplay**
 
   ### Click to watch the video [HERE](https://www.youtube.com/watch?v=drR33b3_z1c)
+  ### Download the last version of the game [HERE](https://www.youtube.com/watch?v=drR33b3_z1c)
 
 
 ### **Team Members**
