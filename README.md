@@ -69,3 +69,7 @@ Use Undo: Don’t hesitate to use the undo function to correct mistakes.
 Move Boxes in Order: Try to solve levels by moving one box at a time towards its destination.
 
 Avoid Corners: Unless the target spot is in a corner, avoid pushing boxes into corners as it may be hard to get them out.
+
+**-Gameplay video:**
+YouTube link:https://youtu.be/clKFhDMHYgk
+
