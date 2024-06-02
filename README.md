@@ -19,21 +19,16 @@ Super Soukoban is a puzzle game developed by THINKING RABBIT and published by PA
 ## **Features implemented**
 
 List of features implemented:
-  - Fixed the collision issues that we had been dealing with.
 
-  - Correctly adjusted the character's sprites.
+  - Win and lose functionalities, as well as background music.
 
-  - Implemented win and lose functionalities, as well as background music.
+  - Levels two through eight.
 
-  - Added levels one through eight.
+  - Hotkeys: F2 to win automatically, F3 to lose automatically, and F4 to show the end of the game.
 
-  - Solved a problem that allowed winning with only three boxes.
-
-  - Fixed an issue where, if a box weighed down by balls moved off the balls, it retained the color as if it were still on them.
-
-  - Implemented hotkeys: F1 to win automatically, F2 to lose automatically, and F4 to show the end of the game.
-
-  - Added full-screen mode.
+  - Full-screen mode.
+    
+  - Make github web page
 
 ---
 
