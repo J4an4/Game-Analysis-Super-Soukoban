@@ -20,13 +20,21 @@ If you have already entered the levels, it will take you to the last level you p
 These keys take you to the corresponding level:
 
 >>**1 Key:** First level
+
 >>**2 Key:** Second level
+
 >>**3 Key:** Third level
+
 >>**4 Key:** Fourth level
+
 >>**5 Key:** Fifth level
+
 >>**6 Key:** Sixth level
+
 >>**7 Key:** Seventh level
+
 >>**8 Key:** Eighth level
+
 >>**9 Key:** Ninth level
 
 >**Escape Key:** Exit the game.
@@ -47,15 +55,17 @@ These keys take you to the corresponding level:
 >>>**Left Arrow:** Move the character left.
 >>>**Right Arrow:** Move the character right.
 
->>**- Winning a Level
+>>**- Winning a Level**
 >>>**Escape Key:** Exit the game.
 
->>**- Losing a Level
+>>**- Losing a Level**
 >>>**Escape Key:** Exit the game.
 
 **- Strategies and Tips**
 Plan Ahead: Before moving a box, consider the consequences of each move.
 
 Use Undo: Don’t hesitate to use the undo function to correct mistakes.
+
 Move Boxes in Order: Try to solve levels by moving one box at a time towards its destination.
+
 Avoid Corners: Unless the target spot is in a corner, avoid pushing boxes into corners as it may be hard to get them out.
