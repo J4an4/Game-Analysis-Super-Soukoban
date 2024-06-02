@@ -1,7 +1,24 @@
-﻿  Player.cpp
-  Generating code
-  3 of 897 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  Vikings.vcxproj -> C:\Users\janaps\Downloads\Super Soukoban\Super Soukoban\x64\Release\Super Soukoban.exe
+﻿  AABB.cpp
+  Entity.cpp
+C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\Entity.h(3,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
+  Game.cpp
+C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\Scene.h(2,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
+  Globals.cpp
+  main.cpp
+C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\Scene.h(2,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
+  Object.cpp
+C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\Entity.h(3,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
+  Player.cpp
+C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\Entity.h(3,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
+  RenderComponent.cpp
+C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\RenderComponent.h(2,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
+  ResourceManager.cpp
+C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\ResourceManager.h(3,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
+  Scene.cpp
+C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\Scene.h(2,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
+  Sprite.cpp
+C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\RenderComponent.h(2,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
+  StaticImage.cpp
+C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\RenderComponent.h(2,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
+  TileMap.cpp
+C:\Users\Usuari\Documents\GitHub\Game-Analysis-Super-Soukoban\src\TileMap.h(3,10): fatal error C1083: Cannot open include file: 'raylib.h': No such file or directory
